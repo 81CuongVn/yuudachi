@@ -46,13 +46,6 @@
 	"devDependencies": {
 		"@babel/core": "^7.14.6",
 		"@mdx-js/react": "^1.6.22",
-		"@storybook/addon-a11y": "^6.3.2",
-		"@storybook/addon-actions": "^6.3.2",
-		"@storybook/addon-docs": "^6.3.2",
-		"@storybook/addon-essentials": "^6.3.2",
-		"@storybook/addon-links": "^6.3.2",
-		"@storybook/addon-toolbars": "^6.3.2",
-		"@storybook/react": "^6.3.2",
 		"@types/node": "^16.0.0",
 		"@types/react": "^17.0.13",
 		"@types/react-datepicker": "^3.1.8",
