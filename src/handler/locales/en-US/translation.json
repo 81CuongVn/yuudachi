@@ -184,7 +184,8 @@
 	"component": {
 		"common": {
 			"errors": {
-				"no_same_mod": "This button can only be used by the moderator who executed the command."
+				"no_same_mod": "This button can only be used by the moderator who executed the command.",
+				"timed_out": "Action timer ran out."
 			}
 		},
 		"mod": {
@@ -192,6 +193,10 @@
 				"errors": {
 					"missing_permissions": "Missing permissions to ban this member.",
 					"failure": "Unable to ban {{- member}}"
+				},
+				"buttons": {
+					"cancel": "Cancel",
+					"execute": "Ban"
 				},
 				"cancel": "Cancelled ban.",
 				"success": "Successfully banned {{- member}}"
