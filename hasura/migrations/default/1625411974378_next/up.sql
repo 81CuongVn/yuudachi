@@ -184,7 +184,6 @@ comment on column role_states.roles is 'The roles of this role state';
 
 create table guild_settings (
 	guild_id text,
-	prefix text default '?',
 	mod_log_channel_id text,
 	mod_role_id text,
 	guild_log_channel_id text,
@@ -199,7 +198,6 @@ create table guild_settings (
 );
 
 comment on column guild_settings.guild_id IS 'The id of the guild this setting belongs to';
-comment on column guild_settings.prefix IS 'The prefix of the guild';
 comment on column guild_settings.mod_log_channel_id IS 'The id of the guilds mod log channel';
 comment on column guild_settings.mod_role_id IS 'The id of the guilds mod role';
 comment on column guild_settings.member_log_channel_id IS 'The id of the guilds member log channel';
@@ -219,7 +217,6 @@ alter table guild_settings
 
 insert into guild_settings (
 	select guild as guild_id,
-		coalesce((settings ->> 'PREFIX')::text, '?') as prefix,
 		(settings ->> 'MOD_LOG')::text as mod_log_channel_id,
 		(settings ->> 'MOD_ROLE')::text as mod_role_id,
 		(settings ->> 'GUILD_LOG')::text as guild_log_channel_id,
