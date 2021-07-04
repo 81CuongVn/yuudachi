@@ -11,9 +11,7 @@ export async function lift(message: APIGuildInteraction, channel: Snowflake, loc
 	const channelMention = `<#${channel}>`;
 
 	try {
-		await api.guilds.deleteLockdown(message.guild_id, {
-			channelId: channel,
-		});
+		await api.guilds.deleteLockdown(message.guild_id, message.channel_id);
 
 		void send(message, {
 			content: i18next.t('command.mod.lockdown.lift.success', { channel: channelMention, lng: locale }),

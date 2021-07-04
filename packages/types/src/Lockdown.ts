@@ -7,10 +7,6 @@ export interface CreateLockdown {
 	reason?: string;
 }
 
-export interface DeleteLockdown {
-	channelId: Snowflake;
-}
-
 export interface Lockdown {
 	guildId: Snowflake;
 	channelId: Snowflake;

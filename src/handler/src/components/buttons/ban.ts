@@ -13,8 +13,8 @@ const { kRedis } = Tokens;
 export default class implements Component {
 	public constructor(private readonly api: API, @inject(kRedis) private readonly redis: Redis.Redis) {}
 
-	public async execute(message: any, args: unknown, locale: string): Promise<void> {
-		await checkMod(message, locale, true);
+	public async execute(message: any, _: unknown, locale: string): Promise<void> {
+		await checkMod(message, locale);
 
 		const [command, id, action] = message.data.custom_id.split('|');
 		const parsedAction = Number(action);
@@ -29,8 +29,19 @@ export default class implements Component {
 		let memberMention;
 		try {
 			const result = await this.redis.get(`${command}|${id}`);
+			if (!result) {
+				void send(
+					message,
+					// @ts-expect-error
+					{ content: i18next.t('component.common.errors.timed_out', { lng: locale }), components: [] },
+					{},
+					7,
+				);
+				return;
+			}
+
 			void this.redis.del(`${command}|${id}`);
-			const payload = JSON.parse(result!);
+			const payload = JSON.parse(result);
 
 			memberMention = `<@${payload.targetId}>`;
 

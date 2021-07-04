@@ -4,3 +4,4 @@ export * from './send';
 export * from './edit';
 export * from './fetchMembers';
 export * from './checkMod';
+export * from './createHistory';

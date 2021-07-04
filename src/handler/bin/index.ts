@@ -62,8 +62,6 @@ const interactionCreate = async () => {
 	) as AsyncIterableIterator<[APIGuildInteraction, AmqpResponseOptions]>) {
 		ack();
 
-		console.log(interaction);
-
 		const [data] = await sql<
 			[
 				{

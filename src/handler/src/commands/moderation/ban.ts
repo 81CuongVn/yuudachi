@@ -9,7 +9,7 @@ import Redis from 'ioredis';
 import { nanoid } from 'nanoid';
 
 import Command from '../../Command';
-import { checkMod, send } from '../../util';
+import { checkMod, createHistory, send } from '../../util';
 
 const { kRedis } = Tokens;
 
@@ -63,10 +63,13 @@ export default class implements Command {
 				actionExpiration: parsedDuration ? new Date(Date.now() + parsedDuration) : undefined,
 			};
 			const key = `${message.data?.name}|${nanoid()}`;
-			await this.redis.set(key, JSON.stringify(payload));
+			await this.redis.set(key, JSON.stringify(payload), 'EX', 30);
+
+			const embed = await createHistory(message, member);
 
 			void send(message, {
 				content: i18next.t('command.mod.ban.pending', { member: memberMention, lng: locale }),
+				embed,
 				// @ts-expect-error
 				components: [
 					{
@@ -74,19 +77,20 @@ export default class implements Command {
 						components: [
 							{
 								type: 2,
-								label: 'Cancel',
+								label: i18next.t('component.mod.ban.buttons.cancel', { lng: locale }),
 								style: 2,
 								custom_id: `${key}|0`,
 							},
 							{
 								type: 2,
-								label: 'Execute',
+								label: i18next.t('component.mod.ban.buttons.execute', { lng: locale }),
 								style: 4,
 								custom_id: `${key}|1`,
 							},
 						],
 					},
 				],
+				flags: 64,
 			});
 		} catch (e) {
 			throw new Error(i18next.t('command.mod.ban.errors.failure', { member: memberMention, lng: locale }));

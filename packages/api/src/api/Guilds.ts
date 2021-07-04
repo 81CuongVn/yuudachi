@@ -1,4 +1,4 @@
-import type { Case, CreateCase, UpdateCase, Lockdown, CreateLockdown, DeleteLockdown } from '@yuudachi/types';
+import type { Case, CreateCase, UpdateCase, Lockdown, CreateLockdown } from '@yuudachi/types';
 import { Constants } from '@yuudachi/core';
 import type {
 	RESTGetAPICurrentUserGuildsResult,
@@ -52,7 +52,7 @@ export default class Guilds {
 		return this.api.make<{ lockdowns: Lockdown[] }>('post', `/guilds/${guildId}/lockdowns`, { lockdowns });
 	}
 
-	public deleteLockdown(guildId: Snowflake, ...lockdowns: DeleteLockdown[]) {
-		return this.api.make<{ lockdown: Lockdown }>('delete', `/guilds/${guildId}/lockdowns`, { lockdowns });
+	public deleteLockdown(guildId: Snowflake, channelId: Snowflake) {
+		return this.api.make<{ lockdown: Lockdown }>('delete', `/guilds/${guildId}/lockdowns/${channelId}`);
 	}
 }
